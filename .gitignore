@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environment
+venv/
+.venv/
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# Terraform
+infrastructure/.terraform/
+infrastructure/*.tfstate
+infrastructure/*.tfstate.backup
+infrastructure/.terraform.lock.hcl
+infrastructure/*.tfvars
+
+# Lambda
+lambda/*.zip
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+AdminUser_accessKeys.csv
+AdminUser_credentials.csv
+cloud-key-pair.pem
+CPP Project Brief Draft_Sem2_2026.pdf
+details.txt
+login-details.txt

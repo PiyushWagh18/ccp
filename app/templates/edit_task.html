@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Edit Task - CloudTask Manager{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-warning text-dark">
+                <h4 class="mb-0"><i class="bi bi-pencil-square me-2"></i>Edit Task</h4>
+            </div>
+            <div class="card-body">
+                <form action="{{ url_for('tasks.update_task', task_id=task.task_id) }}" method="POST" enctype="multipart/form-data">
+                    <!-- Task Title -->
+                    <div class="mb-3">
+                        <label for="title" class="form-label fw-semibold">Title <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="title" name="title"
+                               value="{{ task.title }}" required maxlength="200">
+                    </div>
+
+                    <!-- Task Description -->
+                    <div class="mb-3">
+                        <label for="description" class="form-label fw-semibold">Description</label>
+                        <textarea class="form-control" id="description" name="description"
+                                  rows="4" maxlength="2000">{{ task.description }}</textarea>
+                    </div>
+
+                    <div class="row">
+                        <!-- Status -->
+                        <div class="col-md-6 mb-3">
+                            <label for="status" class="form-label fw-semibold">Status</label>
+                            <select class="form-select" id="status" name="status">
+                                <option value="pending" {% if task.status == 'pending' %}selected{% endif %}>Pending</option>
+                                <option value="in_progress" {% if task.status == 'in_progress' %}selected{% endif %}>In Progress</option>
+                                <option value="completed" {% if task.status == 'completed' %}selected{% endif %}>Completed</option>
+                            </select>
+                        </div>
+
+                        <!-- Priority -->
+                        <div class="col-md-6 mb-3">
+                            <label for="priority" class="form-label fw-semibold">Priority</label>
+                            <select class="form-select" id="priority" name="priority">
+                                <option value="low" {% if task.priority == 'low' %}selected{% endif %}>Low</option>
+                                <option value="medium" {% if task.priority == 'medium' %}selected{% endif %}>Medium</option>
+                                <option value="high" {% if task.priority == 'high' %}selected{% endif %}>High</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Current Attachment -->
+                    {% if task.attachment_name %}
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Current Attachment</label>
+                        <div class="alert alert-info py-2">
+                            <i class="bi bi-paperclip me-1"></i>{{ task.attachment_name }}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- New File Attachment -->
+                    <div class="mb-4">
+                        <label for="attachment" class="form-label fw-semibold">
+                            {% if task.attachment_name %}Replace{% else %}Add{% endif %} Attachment
+                        </label>
+                        <input type="file" class="form-control" id="attachment" name="attachment">
+                        <div class="form-text">Maximum file size: 16 MB. Leave empty to keep the current attachment.</div>
+                    </div>
+
+                    <!-- Submit Buttons -->
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-warning">
+                            <i class="bi bi-check-circle me-1"></i>Update Task
+                        </button>
+                        <a href="{{ url_for('tasks.view_task', task_id=task.task_id) }}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-1"></i>Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Create Task - CloudTask Manager{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0"><i class="bi bi-plus-circle me-2"></i>Create New Task</h4>
+            </div>
+            <div class="card-body">
+                <form action="{{ url_for('tasks.create_task') }}" method="POST" enctype="multipart/form-data">
+                    <!-- Task Title -->
+                    <div class="mb-3">
+                        <label for="title" class="form-label fw-semibold">Title <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="title" name="title"
+                               placeholder="Enter task title" required maxlength="200">
+                    </div>
+
+                    <!-- Task Description -->
+                    <div class="mb-3">
+                        <label for="description" class="form-label fw-semibold">Description</label>
+                        <textarea class="form-control" id="description" name="description"
+                                  rows="4" placeholder="Enter task description" maxlength="2000"></textarea>
+                    </div>
+
+                    <div class="row">
+                        <!-- Status -->
+                        <div class="col-md-6 mb-3">
+                            <label for="status" class="form-label fw-semibold">Status</label>
+                            <select class="form-select" id="status" name="status">
+                                <option value="pending" selected>Pending</option>
+                                <option value="in_progress">In Progress</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+
+                        <!-- Priority -->
+                        <div class="col-md-6 mb-3">
+                            <label for="priority" class="form-label fw-semibold">Priority</label>
+                            <select class="form-select" id="priority" name="priority">
+                                <option value="low">Low</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- File Attachment -->
+                    <div class="mb-4">
+                        <label for="attachment" class="form-label fw-semibold">File Attachment</label>
+                        <input type="file" class="form-control" id="attachment" name="attachment">
+                        <div class="form-text">Maximum file size: 16 MB. Stored securely in AWS S3.</div>
+                    </div>
+
+                    <!-- Submit Buttons -->
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-circle me-1"></i>Create Task
+                        </button>
+                        <a href="{{ url_for('tasks.index') }}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-1"></i>Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
